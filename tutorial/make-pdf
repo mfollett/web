@@ -4,12 +4,12 @@ my $inkscape_executable
     = '/Applications/Inkscape.app/Contents/Resources/bin/inkscape';
 
 die 'Could not find inkscape'
-    unless $inkscape_executable ~~ :f;
+    unless $inkscape_executable.IO ~~ :f;
 
 run 'rm -rf pdf/*';
 
 my $i = 0;
-while 'src/' ~ (my $page = 'page' ~ ++$i) ~ '.svg' ~~ :f {
+while ('src/' ~ (my $page = 'page' ~ ++$i) ~ '.svg').IO ~~ :f {
     run
         "$inkscape_executable "
         ~ "--without-gui --file=src/$page.svg "
